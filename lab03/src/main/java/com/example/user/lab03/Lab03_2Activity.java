@@ -22,10 +22,11 @@ public class Lab03_2Activity extends AppCompatActivity implements View.OnClickLi
     Button dateBtn;
     Button timeBtn;
     Button customDialogBtn;
+
     // 이벤트 처리를 위해 dialog 객체를 멤버변수로 선언
-    AlertDialog customDialog; // android.app.AlertDialog
-    AlertDialog listDialog; // android.app.AlertDialog
-    AlertDialog alertDialog; // android.app.AlertDialog
+    AlertDialog customDialog;
+    AlertDialog listDialog;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class Lab03_2Activity extends AppCompatActivity implements View.OnClickLi
         dateBtn = findViewById(R.id.btn_date);
         timeBtn = findViewById(R.id.btn_time);
         customDialogBtn = findViewById(R.id.btn_custom);
+
         // 버튼 이벤트 등록
         alertBtn.setOnClickListener(this);
         listBtn.setOnClickListener(this);
@@ -102,7 +104,7 @@ public class Lab03_2Activity extends AppCompatActivity implements View.OnClickLi
             dateDialog.show();
         }
         else if (view == timeBtn) {
-            // 현재 시간으로 Dialog를 띄우기 위해 시간을 구함
+            // 현재 시간으로 dialog를 띄우기 위해 시간을 구함
             Calendar c = Calendar.getInstance(); // java.util.Calendar
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
