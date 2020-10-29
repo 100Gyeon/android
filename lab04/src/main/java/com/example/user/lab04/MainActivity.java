@@ -1,6 +1,8 @@
 package com.example.user.lab04;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,6 +19,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CheckBox repeatCheckView;
     CheckBox vibrateCheckView;
     Switch switchView;
+
+    float initX;
+    long initTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         repeatCheckView.setOnCheckedChangeListener(this);
         vibrateCheckView.setOnCheckedChangeListener(this);
         switchView.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            initX = event.getRawX();
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            float diffX = initX - event.getRawX();
+            if(diffX > 30) {
+                showToast("왼쪽으로 화면을 밀었습니다");
+            } else if (diffX < -30) {
+                showToast("오른쪽으로 화면을 밀었습니다.");
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+           if (System.currentTimeMillis() - initTime > 3000) {
+               showToast("종료하려면 한 번 더 누르세요.");
+               initTime = System.currentTimeMillis();
+           } else {
+               finish();
+           }
+           return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void showToast(String message){
