@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest.permission;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -84,10 +85,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!file.exists()) { // 파일이 없다면 새로 만들어 준다.
                     file.createNewFile();
                 }
+
+                // file write
                 writer = new FileWriter(file, true);
                 writer.write(content);
                 writer.flush();
                 writer.close();
+
+                // 결과 확인을 위한 Activity 실행
+                Intent intent = new Intent(this, ReadFileActivity.class);
+                startActivity(intent);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
