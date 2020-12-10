@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
         // get 버튼 클릭 시 SharedPreferences에서 값 불러오기
         SharedPreferences sharedPref = getSharedPreferences("text", Context.MODE_PRIVATE);
         String inputText = sharedPref.getString("inputText", ""); // 두 번째는 default value
-        int inputInt = sharedPref.getInt("inputInt", 0); // inputInt라는 key 값이 없다면 0을 리턴하라
-        textView.setText(inputText + " " + inputInt);
+        textView.setText(inputText);
+    }
+
+    public void changeBtn(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+        startActivity(intent);
     }
 }
